@@ -122,19 +122,20 @@ export default class Webcam extends Component {
     navigator.getUserMedia = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
-                          navigator.msGetUserMedia || 
+                          navigator.msGetUserMedia ||
                           navigator.mediaDevices.getUserMedia;
 
     const sourceSelected = (audioSource, videoSource) => {
       const constraints = {
         video: {
-          optional: [{ sourceId: videoSource }],
+          sourceId: videoSource,
+          facingMode: 'user',
         },
       };
 
       if (this.props.audio) {
         constraints.audio = {
-          optional: [{ sourceId: audioSource }],
+          sourceId: audioSource,
         };
       }
 
