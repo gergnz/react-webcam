@@ -128,14 +128,13 @@ export default class Webcam extends Component {
     const sourceSelected = (audioSource, videoSource) => {
       const constraints = {
         video: {
-          sourceId: videoSource,
-          facingMode: 'user',
+          deviceId: videoSource,
         },
       };
 
       if (this.props.audio) {
         constraints.audio = {
-          sourceId: audioSource,
+          deviceId: audioSource,
         };
       }
 
@@ -202,13 +201,13 @@ export default class Webcam extends Component {
     }
     try {
       const src = window.URL.createObjectURL(stream);
-  
+
       this.stream = stream;
       this.setState({
         hasUserMedia: true,
         src,
       });
-  
+
       this.props.onUserMedia();
     } catch(error) {
       this.stream = stream;
