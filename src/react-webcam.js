@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 
 function hasGetUserMedia() {
-  return !!(navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia ||
-            navigator.mozGetUserMedia || navigator.msGetUserMedia);
+  return !!(navigator.mediaDevices.getUserMedia || navigator.getUserMedia ||
+            navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 }
 
 export default class Webcam extends Component {
@@ -138,7 +138,7 @@ export default class Webcam extends Component {
         };
       }
 
-      navigator.getUserMedia(constraints, (stream) => {
+      navigator.mediaDevices.getUserMedia(constraints, (stream) => {
         Webcam.mountedInstances.forEach(instance => instance.handleUserMedia(null, stream));
       }, (e) => {
         Webcam.mountedInstances.forEach(instance => instance.handleUserMedia(e));
