@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 
-function hasGetUserMedia() {
-  return !!(navigator.mediaDevices.getUserMedia || navigator.getUserMedia ||
-            navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
-}
-
 export default class Webcam extends Component {
   static defaultProps = {
     audio: true,
@@ -51,8 +46,6 @@ export default class Webcam extends Component {
   }
 
   componentDidMount() {
-    if (!hasGetUserMedia()) return;
-
     Webcam.mountedInstances.push(this);
 
     if (!this.state.hasUserMedia && !Webcam.userMediaRequested) {
@@ -119,12 +112,6 @@ export default class Webcam extends Component {
   }
 
   requestUserMedia() {
-    navigator.getUserMedia = navigator.mediaDevices.getUserMedia ||
-                          navigator.getUserMedia ||
-                          navigator.webkitGetUserMedia ||
-                          navigator.mozGetUserMedia ||
-                          navigator.msGetUserMedia;
-
     const sourceSelected = (audioSource, videoSource) => {
       const constraints = {
         video: {
