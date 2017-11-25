@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 
 function hasGetUserMedia() {
-  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
-            navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.mediaDevices.getUserMedia);
+  return !!(navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia || navigator.msGetUserMedia);
 }
 
 export default class Webcam extends Component {
@@ -119,11 +119,11 @@ export default class Webcam extends Component {
   }
 
   requestUserMedia() {
-    navigator.getUserMedia = navigator.getUserMedia ||
+    navigator.getUserMedia = navigator.mediaDevices.getUserMedia ||
+                          navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
-                          navigator.msGetUserMedia ||
-                          navigator.mediaDevices.getUserMedia;
+                          navigator.msGetUserMedia;
 
     const sourceSelected = (audioSource, videoSource) => {
       const constraints = {
